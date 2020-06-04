@@ -17,6 +17,8 @@ notifications:
   slack:
     on_failure: always
 
+
+
 fleet_script_minikube_knative_istio_serverless_tasks : &fleet_script_minikube_knative_istio_serverless_tasks
       script:
           - set -eux #safety for script
@@ -81,6 +83,7 @@ fleet_script_minikube_knative_istio_serverless_tasks : &fleet_script_minikube_kn
           - kubectl get pods --namespace=knative-serving
           - echo "=========================================================================================="
           - - echo 'Knative ingress:' $(minikube ip):$(kubectl get svc knative-ingressgateway -n istio-system -o 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')
+
 fleet_script_minikube_knative_ambassador_serverless_tasks : &fleet_script_minikube_knative_ambassador_serverless_tasks
       script:
           - set -eux #safety for script
