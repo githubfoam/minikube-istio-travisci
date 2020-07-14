@@ -28,7 +28,12 @@ mkdir -p $HOME/.kube $HOME/.minikube
 minikube start --profile=minikube --vm-driver=none #the none driver, the kubectl config and credentials generated are owned by root in the root user’s home directory
 minikube status #* There is no local cluster named "minikube"
 minikube update-context --profile=minikube
-`chown -R travis: /home/travis/.minikube/`
+
+# `chown -R travis: /home/travis/.minikube/`
+echo $USER
+echo $HOME 
+`chown -R $USER: $HOME/.minikube/`
+
 eval "$(minikube docker-env --profile=minikube)" && export DOCKER_CLI='docker'
 
 echo "=========================================================================================="
