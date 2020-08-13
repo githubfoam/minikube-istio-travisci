@@ -41,6 +41,8 @@ for i in {1..60}; do # Timeout after 5 minutes, 60x5=300 secs
       # if kubectl get pods --namespace=kubeflow -l openebs.io/component-name=centraldashboard | grep Running ; then
       if kubectl get pods --namespace=default  | grep Pending ; then
         sleep 10
+      if kubectl get pods --namespace=default  | grep Init ; then
+        sleep 10        
       else
         break
       fi
