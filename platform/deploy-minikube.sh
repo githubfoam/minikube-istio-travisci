@@ -59,7 +59,7 @@ echo "==========================================================================
 #     fi
 #     sleep 2
 # done
-echo echo "Waiting for kubernetes be ready ..."
+echo "Waiting for kubernetes be ready ..."
 for i in {1..150}; do # Timeout after 5 minutes, 60x5=300 secs
       if kubectl get pods --namespace=kube-system  | grep ContainerCreating ; then
         sleep 10
