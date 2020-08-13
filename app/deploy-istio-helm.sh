@@ -7,6 +7,10 @@ set -o xtrace
 
 #https://istio.io/latest/docs/setup/getting-started/
 echo "===============================Install Istio with Helm==========================================================="
+
+minikube status #* There is no local cluster named "minikube"
+minikube update-context --profile=minikube
+
 # Add Istio Helm repository
 export ISTIO_VER="1.2.3"
 helm repo add istio.io https://storage.googleapis.com/istio-release/releases/${ISTIO_VER}/charts

@@ -1,7 +1,7 @@
 #!/bin/bash
 set -eox pipefail #safety for script
 
-echo "=============================minikube============================================================="
+echo "=============================deploy minikube============================================================="
 set -eox pipefail #safety for script
 if [[ $(egrep -c '(vmx|svm)' /proc/cpuinfo) == 0 ]]; then #check if virtualization is supported on Linux, xenial fails w 0, bionic works w 2
            echo "virtualization is not supported"
@@ -24,9 +24,21 @@ export KUBECONFIG=$HOME/.kube/config
 export HELM_VERSION="2.16.9"
 
 apt-get update -qq && apt-get -qqy install conntrack #http://conntrack-tools.netfilter.org/
+
 # curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl && chmod +x kubectl && mv kubectl /usr/local/bin/ # Download kubectl
 # curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 && chmod +x minikube && mv minikube /usr/local/bin/ # Download minikube
-curl -Lo minikube https://storage.googleapis.com/minikube/releases/v$MINIKUBE_VERSION/minikube-linux-amd64 && chmod +x minikube && mv minikube /usr/local/bin/ # Download minikube
+
+
+# https://minikube.sigs.k8s.io/docs/start/
+# curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+# sudo install minikube-linux-amd64 /usr/local/bin/minikube
+
+# https://kubernetes.io/docs/tasks/tools/install-minikube/
+curl -Lo minikube https://storage.googleapis.com/minikube/releases/v$MINIKUBE_VERSION/minikube-linux-amd64 
+chmod +x minikube 
+# add the Minikube executable to your path
+mkdir -p /usr/local/bin/
+install minikube /usr/local/bin/
 minikube version
 
 curl -Lo kubectl https://storage.googleapis.com/kubernetes-release/release/v$KUBECTL_VERSION/bin/linux/amd64/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin/ # Download kubectl

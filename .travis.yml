@@ -55,7 +55,7 @@ matrix:
         #MINIKUBE_VERSION=1.18.3  KUBECTL_VERSION=1.18.3 HELM_VERSION="2.16.9"
         - sudo make deploy-minikube 
         #ISTIOVERSION="1.6.4"
-        - sudo make deploy-istio         
+        # - sudo make deploy-istio         
       after_success:
         - deactivate
 
