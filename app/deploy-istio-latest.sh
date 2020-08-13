@@ -8,9 +8,6 @@ set -o xtrace
 # Istio has several optional dashboards installed by the demo installation.
 echo "============================Install istio=============================================================="
 
-#Download Istio
-#/bin/sh -c 'curl -L https://istio.io/downloadIstio | sh -' #download and extract the latest release automatically (Linux or macOS)
-
 # Download Istio
 curl -L https://istio.io/downloadIstio | sh -
 # cd istio-1.6.4
@@ -42,7 +39,7 @@ kubectl get service --all-namespaces #list all services in all namespace
 echo echo "Waiting for default to be ready ..."
 for i in {1..60}; do # Timeout after 5 minutes, 60x5=300 secs
       # if kubectl get pods --namespace=kubeflow -l openebs.io/component-name=centraldashboard | grep Running ; then
-      if kubectl get pods --namespace=default  | grep ContainerCreating ; then
+      if kubectl get pods --namespace=default  | grep Pending ; then
         sleep 10
       else
         break
