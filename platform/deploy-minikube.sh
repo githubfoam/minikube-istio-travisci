@@ -39,7 +39,8 @@ chmod +x minikube
 # add the Minikube executable to your path
 mkdir -p /usr/local/bin/
 install minikube /usr/local/bin/
-minikube version
+# minikube version
+minikube status
 
 curl -Lo kubectl https://storage.googleapis.com/kubernetes-release/release/v$KUBECTL_VERSION/bin/linux/amd64/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin/ # Download kubectl
 kubectl version --client

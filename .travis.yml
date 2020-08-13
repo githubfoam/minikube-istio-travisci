@@ -11,18 +11,18 @@ matrix:
   fast_finish: true
   include:
 
-    - name: "Install istio w helm snapped minikube kubectl helm Python 3.7 on bionic amd64"
+    - name: "deploy istio w helm snapped minikube kubectl helm Python 3.7 on bionic amd64"
       dist: bionic
       arch: amd64
       addons:
         snaps:
-          - name: helm
+          - name: helm #Version:"v3.3.0"
             confinement: classic
             channel: latest/stable
-          - name: kubectl
+          - name: kubectl #GitVersion:"v1.18.6",
             confinement: classic
             channel: latest/stable
-          - name: minikube
+          - name: minikube # minikube version: v0.8.0
             confinement: classic
             channel: latest/stable            
       language: python
@@ -36,11 +36,11 @@ matrix:
         - minikube version
         - kubectl version --client
         - helm version
-        - sudo make deploy-istio-helm
+        # - sudo make deploy-istio-helm
       after_success:
         - deactivate 
 
-    - name: "istio minikube helm kubectl pinned versions wo snaps Python 3.7 on bionic" #OK
+    - name: "deploy istio minikube helm kubectl pinned versions wo snaps Python 3.7 on bionic" #OK
       dist: bionic
       arch: amd64           
       language: python
@@ -60,21 +60,21 @@ matrix:
         - deactivate
 
 
-    # - name: "istio latest minikube wo snaps latest  Python 3.7 on bionic amd64" #OK
-    #   dist: bionic
-    #   arch: amd64
-    #   language: python
-    #   python: 3.7
-    #   before_install:
-    #     - pip3 install virtualenv
-    #     - virtualenv -p $(which python3) ~venvpy3
-    #     - source ~venvpy3/bin/activate
-    #     - pip install -r requirements.txt
-    #   script:
-    #     - sudo make deploy-minikube-latest
-    #     - sudo make deploy-istio-latest
-    #   after_success:
-    #     - deactivate        
+    - name: "istio latest minikube wo snaps latest  Python 3.7 on bionic amd64" #OK
+      dist: bionic
+      arch: amd64
+      language: python
+      python: 3.7
+      before_install:
+        - pip3 install virtualenv
+        - virtualenv -p $(which python3) ~venvpy3
+        - source ~venvpy3/bin/activate
+        - pip install -r requirements.txt
+      script:
+        - sudo make deploy-minikube-latest
+        - sudo make deploy-istio-latest
+      after_success:
+        - deactivate        
 
     # - name: "minikube service mesh istio knative ambassador serverless  Python 3.7 on bionic"
     #   dist: bionic
