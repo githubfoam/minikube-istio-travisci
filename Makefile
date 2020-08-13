@@ -1,6 +1,9 @@
 IMAGE := alpine/fio
 APP:="app/deploy-openesb.sh"
 
+deploy-istio-helm:
+	bash app/deploy-istio-helm.sh
+
 deploy-istio-latest:
 	bash app/deploy-istio-latest.sh
 

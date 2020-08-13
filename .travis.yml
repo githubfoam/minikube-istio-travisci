@@ -11,9 +11,9 @@ matrix:
   fast_finish: true
   include:
 
-    - name: "istio-1.6.4 minikube latest Python 3.7 on bionic" #OK
+    - name: "Install istio w helm snapped minikube kubectl helm Python 3.7 on bionic amd64"
       dist: bionic
-      arch: amd64      
+      arch: amd64
       addons:
         snaps:
           - name: helm
@@ -24,7 +24,25 @@ matrix:
             channel: latest/stable
           - name: minikube
             confinement: classic
-            channel: latest/stable      
+            channel: latest/stable            
+      language: python
+      python: 3.7
+      before_install:
+        - pip3 install virtualenv
+        - virtualenv -p $(which python3) ~venvpy3
+        - source ~venvpy3/bin/activate
+        - pip install -r requirements.txt
+      script:                
+        - minikube version
+        - kubectl version --client
+        - helm version
+        - sudo make deploy-istio-helm
+      after_success:
+        - deactivate 
+
+    - name: "istio minikube helm kubectl pinned versions wo snaps Python 3.7 on bionic" #OK
+      dist: bionic
+      arch: amd64           
       language: python
       python: 3.7
       before_install:
@@ -34,8 +52,10 @@ matrix:
         - pip install -r requirements.txt
         - python --version
       script:
-        - sudo make deploy-minikube-latest
-        - sudo make deploy-istio        
+        #MINIKUBE_VERSION=1.18.3  KUBECTL_VERSION=1.18.3 HELM_VERSION="2.16.9"
+        - sudo make deploy-minikube 
+        #ISTIOVERSION="1.6.4"
+        - sudo make deploy-istio         
       after_success:
         - deactivate
 
