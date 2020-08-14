@@ -33,7 +33,7 @@ for i in {1..60}; do # Timeout after 5 minutes, 60x5=300 secs
         break
       fi
 done
-sleep 10
+sleep 30
 kubectl get service --all-namespaces #list all services in all namespace
 
 
@@ -46,19 +46,7 @@ for i in {1..60}; do # Timeout after 5 minutes, 60x5=300 secs
         break
       fi
 done
-sleep 10
-kubectl get service --all-namespaces #list all services in all namespace
-
-echo echo "Waiting for default to be ready ...Init check"
-for i in {1..60}; do # Timeout after 5 minutes, 60x5=300 secs
-      # if kubectl get pods --namespace=kubeflow -l openebs.io/component-name=centraldashboard | grep Running ; then
-      if kubectl get pods --namespace=default  | grep Init ; then
-        sleep 10
-      else
-        break
-      fi
-done
-sleep 10
+sleep 30
 kubectl get service --all-namespaces #list all services in all namespace
 
 # Deploy the sample application
